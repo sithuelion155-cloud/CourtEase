@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "54125495013",
+    "project_id": "courtease-192026",
+    "storage_bucket": "courtease-192026.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54125495013:android:80fa88599c3289abdb8a0c",
+        "android_client_info": {
+          "package_name": "com.sithu.courtease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrBpAS_xEB3OjnxOVhIQ3ZXoUMYJhzyMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
