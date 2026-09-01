@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">CourtEase</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in to continue</string>
+    <string name="login">Login</string>
+    <string name="or_divider">OR</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_up_prompt">Don\'t have an account? Sign Up</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="register">Register</string>
+    <string name="welcome_to_courtease">Welcome to CourtEase!</string>
+    <string name="app_subtitle">Your court booking companion</string>
+    <string name="logout">Logout</string>
 </resources>
