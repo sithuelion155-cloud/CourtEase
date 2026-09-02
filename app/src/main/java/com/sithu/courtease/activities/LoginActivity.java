@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.sithu.courtease.R;
+import com.sithu.courtease.utils.FirestoreUserManager;
 
 import java.util.concurrent.Executors;
 
@@ -336,20 +337,47 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (user != null) {
 
-                            String displayName =
-                                    user.getDisplayName();
+                            FirestoreUserManager userManager =
+                                    new FirestoreUserManager();
 
-                            Toast.makeText(
-                                    LoginActivity.this,
-                                    "Welcome "
-                                            + (displayName != null
-                                            ? displayName
-                                            : "to CourtEase"),
-                                    Toast.LENGTH_SHORT
-                            ).show();
+                            userManager.createOrUpdateUser(
+                                    user,
+                                    user.getDisplayName(),
+                                    "",
+                                    "google",
+                                    new FirestoreUserManager.OnUserSavedListener() {
 
-                            openMainActivity();
+                                        @Override
+                                        public void onSuccess() {
 
+                                            Toast.makeText(
+                                                    LoginActivity.this,
+                                                    "Welcome to CourtEase",
+                                                    Toast.LENGTH_SHORT
+                                            ).show();
+
+                                            openMainActivity();
+                                        }
+
+                                        @Override
+                                        public void onFailure(
+                                                @NonNull Exception e) {
+
+                                            Toast.makeText(
+                                                    LoginActivity.this,
+                                                    "Google login succeeded, but your profile could not be saved.",
+                                                    Toast.LENGTH_LONG
+                                            ).show();
+
+                                            /*
+                                             * Authentication itself succeeded,
+                                             * so we can still allow the user
+                                             * into CourtEase.
+                                             */
+                                            openMainActivity();
+                                        }
+                                    }
+                            );
                         } else {
 
                             Toast.makeText(

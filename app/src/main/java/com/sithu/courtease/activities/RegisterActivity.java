@@ -8,10 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.sithu.courtease.MainActivity;
 import com.sithu.courtease.R;
+
+import com.google.firebase.auth.UserProfileChangeRequest;
+
+import com.google.firebase.auth.FirebaseUser;
+import com.sithu.courtease.utils.FirestoreUserManager;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -133,18 +140,77 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG
                         ).show();
 
-                        // Return to Login
-                        Intent intent = new Intent(
-                                RegisterActivity.this,
-                                LoginActivity.class
-                        );
+                        FirebaseUser user = task.getResult().getUser();
 
-                        intent.setFlags(
-                                Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        );
+                        if (user != null) {
 
-                        startActivity(intent);
-                        finish();
+                            UserProfileChangeRequest profileUpdates =
+                                    new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(name)
+                                            .build();
+
+                            user.updateProfile(profileUpdates)
+                                    .addOnCompleteListener(
+                                            profileTask -> {
+
+                                                FirestoreUserManager userManager =
+                                                        new FirestoreUserManager();
+
+                                                userManager.createOrUpdateUser(
+                                                        user,
+                                                        name,
+                                                        phone,
+                                                        "email",
+                                                        new FirestoreUserManager.OnUserSavedListener() {
+
+                                                            @Override
+                                                            public void onSuccess() {
+
+                                                                Toast.makeText(
+                                                                        RegisterActivity.this,
+                                                                        "Account created successfully.",
+                                                                        Toast.LENGTH_SHORT
+                                                                ).show();
+
+                                                                Intent intent =
+                                                                        new Intent(
+                                                                                RegisterActivity.this,
+                                                                                MainActivity.class
+                                                                        );
+
+                                                                intent.setFlags(
+                                                                        Intent.FLAG_ACTIVITY_NEW_TASK
+                                                                                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                                );
+
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+
+                                                            @Override
+                                                            public void onFailure(
+                                                                    @NonNull Exception e) {
+
+                                                                Toast.makeText(
+                                                                        RegisterActivity.this,
+                                                                        "Account created, but profile could not be saved. Please try again.",
+                                                                        Toast.LENGTH_LONG
+                                                                ).show();
+
+                                                                // Allow access even if Firestore failed.
+                                                                Intent intent =
+                                                                        new Intent(
+                                                                                RegisterActivity.this,
+                                                                                MainActivity.class
+                                                                        );
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        }
+                                                );
+                                            }
+                                    );
+                        }
 
                     } else {
 

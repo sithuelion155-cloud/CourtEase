@@ -13,4 +13,12 @@
     <string name="welcome_to_courtease">Welcome to CourtEase!</string>
     <string name="app_subtitle">Your court booking companion</string>
     <string name="logout">Logout</string>
+
+    <string name="notifications">Notifications</string>
+    <string name="no_new_alerts">No new alerts</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="no_upcoming_bookings">No upcoming bookings</string>
+    <string name="profile">Profile</string>
+    <string name="search_hint">Search for courts...</string>
+    <string name="currently_unavailable">Currently Unavailable</string>
 </resources>
