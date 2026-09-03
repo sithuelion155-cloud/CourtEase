@@ -81,46 +81,24 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
                 )
         );
 
-        int imageResource = getImageResource(court.getImageName());
+        int imageResource = holder.itemView.getContext().getResources().getIdentifier(
+                court.getImageName(),
+                "drawable",
+                holder.itemView.getContext().getPackageName()
+        );
 
-        if (imageResource != 0) {
-            Glide.with(holder.itemView.getContext())
-                    .load(imageResource)
-                    .centerCrop()
-                    .into(holder.ivCourt);
+        if (imageResource == 0) {
+            imageResource = R.drawable.court_indoor;
         }
+
+        Glide.with(holder.itemView.getContext())
+                .load(imageResource)
+                .centerCrop()
+                .into(holder.ivCourt);
 
         holder.itemView.setOnClickListener(v ->
                 listener.onCourtClick(court)
         );
-    }
-
-    private int getImageResource(String imageName) {
-
-        if (imageName == null) {
-            return 0;
-        }
-
-        switch (imageName) {
-
-            case "court_badminton":
-                return R.drawable.court_indoor;
-
-            case "court_basketball":
-                return R.drawable.court_multisport;
-
-            case "court_pickleball":
-                return R.drawable.court_pickleball;
-
-            case "court_multisport":
-                return R.drawable.court_basketball;
-
-            case "court_indoor":
-                return R.drawable.court_badminton;
-
-            default:
-                return R.drawable.court_indoor;
-        }
     }
 
     @Override

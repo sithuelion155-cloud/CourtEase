@@ -208,27 +208,13 @@ public class CourtDetailsFragment extends Fragment {
 
     private void setCourtImage() {
 
-        String imageName =
-                court.getImageName();
+        int imageResource = requireContext().getResources().getIdentifier(
+                court.getImageName(),
+                "drawable",
+                requireContext().getPackageName()
+        );
 
-        int imageResource;
-
-        if ("court_badminton".equals(imageName)) {
-            imageResource = R.drawable.court_indoor;
-
-        } else if ("court_basketball".equals(imageName)) {
-            imageResource = R.drawable.court_multisport;
-
-        } else if ("court_pickleball".equals(imageName)) {
-            imageResource = R.drawable.court_pickleball;
-
-        } else if ("court_multisport".equals(imageName)) {
-            imageResource = R.drawable.court_basketball;
-
-        } else if ("court_indoor".equals(imageName)) {
-            imageResource = R.drawable.court_badminton;
-
-        } else {
+        if (imageResource == 0) {
             imageResource = R.drawable.court_indoor;
         }
 

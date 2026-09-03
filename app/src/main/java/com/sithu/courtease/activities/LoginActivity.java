@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -113,6 +114,12 @@ public class LoginActivity extends AppCompatActivity {
         // Validate email
         if (TextUtils.isEmpty(email)) {
             etEmail.setError("Email is required");
+            etEmail.requestFocus();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError("Enter a valid email address");
             etEmail.requestFocus();
             return;
         }

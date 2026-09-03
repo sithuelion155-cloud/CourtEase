@@ -44,7 +44,7 @@ public class CourtData {
                 "A sports hall serving the Tiong Bahru community with indoor sports facilities.",
                 15.00,
                 4.4,
-                "court_indoor"
+                "court_badminton"
         ));
 
         courts.add(new Court(
@@ -56,7 +56,7 @@ public class CourtData {
                 "An indoor sports hall with badminton courts that can also support other court sports.",
                 18.00,
                 4.5,
-                "court_indoor"
+                "court_badminton"
         ));
 
         courts.add(new Court(
